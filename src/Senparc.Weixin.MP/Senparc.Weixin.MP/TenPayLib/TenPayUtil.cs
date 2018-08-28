@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -42,6 +42,7 @@ using System.Text;
 using Senparc.Weixin.MP.Helpers;
 using System.Net;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -49,6 +50,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// TenpayUtil 的摘要说明。
     /// 配置文件
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class TenPayUtil
     {
         /// <summary>

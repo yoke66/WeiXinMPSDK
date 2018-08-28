@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付 请求处理
@@ -38,8 +38,9 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -64,6 +65,7 @@ namespace Senparc.Weixin.MP.TenPayLib
      * 
      * ============================================================================
      */
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class RequestHandler
     {
 
@@ -195,7 +197,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             this.SetParameter("sign", sign);
 
@@ -223,7 +225,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     sb.Append(k + "=" + v + "&");
                 }
             }
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 
             this.SetParameter("sign", sign);
             return sign;
@@ -256,7 +258,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     }
                 }
             }
-            string paySign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            string paySign = EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);

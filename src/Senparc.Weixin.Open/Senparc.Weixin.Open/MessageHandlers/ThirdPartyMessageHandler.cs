@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -16,6 +16,7 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Open.Tencent;
@@ -45,7 +46,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
             _postModel = postModel;
-            EcryptRequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
+            EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
             Init();
         }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPay.cs
     文件功能描述：企业号微信支付接口
@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
@@ -29,7 +30,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 企业号微信支付接口
     /// </summary>
-    
+
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public static class TenPay
     {
         #region 同步方法

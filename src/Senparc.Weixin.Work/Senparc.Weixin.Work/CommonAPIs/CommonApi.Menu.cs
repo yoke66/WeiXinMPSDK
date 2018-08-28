@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -31,6 +31,8 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Menu;
+using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Extensions;
 
 #if NET45
 using System.Web.Script.Serialization;
@@ -43,7 +45,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
     public partial class CommonApi
     {
         #region 同步方法
-        
+
         /// <summary>
         /// 创建菜单
         /// </summary>
@@ -54,7 +56,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <returns></returns>
         public static WorkJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+            var urlFormat = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
             ////对特殊符号进行URL转义
             //foreach (var button in buttonData.button)
             //{
@@ -168,7 +170,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <returns></returns>
         public static GetMenuResult GetMenu(string accessToken, int agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
 
             var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
             //var finalResult = GetMenuFromJson(jsonString);
@@ -183,7 +185,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 #else
                 var jsonResult = JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
 #endif
-                if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                if (jsonResult.button == null || jsonResult.button.Count == 0)
                 {
                     throw new WeixinException(jsonResult.errmsg);
                 }
@@ -210,7 +212,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //重新整理按钮信息
                 ButtonGroup bg = new ButtonGroup();
-                foreach (var rootButton in resultFull.menu.button)
+                foreach (var rootButton in resultFull.button)
                 {
                     if (rootButton.name == null)
                     {
@@ -434,8 +436,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <returns></returns>
         public static WorkJsonResult DeleteMenu(string accessToken, int agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = Get.GetJson<WorkJsonResult>(url);
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+            var result = Senparc.Weixin.HttpUtility.Get.GetJson<WorkJsonResult>(url);
             return result;
         }
         #endregion
@@ -451,8 +453,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <returns></returns>
         public static async Task<WorkJsonResult> DeleteMenuAsync(string accessToken, int agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = await Get.GetJsonAsync<WorkJsonResult>(url);
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+            var result = await Senparc.Weixin.HttpUtility.Get.GetJsonAsync<WorkJsonResult>(url);
             return result;
         }
         #endregion

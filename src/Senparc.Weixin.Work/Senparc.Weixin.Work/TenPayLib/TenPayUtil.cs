@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -22,6 +22,7 @@ using System;
 using System.Text;
 using Senparc.Weixin.Helpers;
 using System.Net;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -29,6 +30,7 @@ namespace Senparc.Weixin.Work.TenPayLib
     /// TenpayUtil 的摘要说明。
     /// 配置文件
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayUtil
     {
         public static Random random = new Random();
